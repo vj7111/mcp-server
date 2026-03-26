@@ -1,4 +1,4 @@
-import { createServer } from "@modelcontextprotocol/sdk/server";
+import { createServer } from "@modelcontextprotocol/sdk";
 
 const server = createServer({
   tools: [
@@ -7,9 +7,7 @@ const server = createServer({
       description: "Say hello",
       parameters: {
         type: "object",
-        properties: {
-          name: { type: "string" }
-        },
+        properties: { name: { type: "string" } },
         required: ["name"]
       },
       execute: async ({ name }) => {
@@ -20,6 +18,6 @@ const server = createServer({
 });
 
 const PORT = process.env.PORT || 3000;
-
-// IMPORTANT for Railway
-server.listen(PORT, "0.0.0.0");
+server.listen(PORT, "0.0.0.0", () => {
+  console.log("MCP server running on port", PORT);
+});
